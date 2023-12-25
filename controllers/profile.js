@@ -11,10 +11,23 @@ export const getProfiles = async (req, res) => {
   }
 };
 
+// export const getProfile = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const profile = await Profile.findById(id);
+//     res.json(profile);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 export const getProfile = async (req, res) => {
   try {
-    const { id } = req.params;
-    const profile = await Profile.findById(id);
+    const { userId } = req.params; // Use userId in the route parameter
+    const profile = await Profile.findOne({ user: userId });
+    if (!profile) {
+      return res.status(404).json({ message: 'Profile not found' });
+    }
     res.json(profile);
   } catch (error) {
     console.log(error.message);
