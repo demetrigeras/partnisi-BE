@@ -10,6 +10,17 @@ export const getEvents = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+  export const getEventsByUser = async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const events = await EventSchema.find({ user: userId }); // Replace 'user' with the appropriate field in your schema
+      res.json(events);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: error.message }); 
+    }
+  }
   
   export const getEvent = async (req, res) => {
     try {

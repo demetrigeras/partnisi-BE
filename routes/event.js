@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/", controllers.getEvents);
 router.get("/:id", controllers.getEvent);
+router.get("/user/:userId", controllers.getEventsByUser);
 router.post("/", controllers.createEvent);
 router.put("/:id", controllers.updateEvent);
 router.delete("/:id", controllers.deleteEvent);
