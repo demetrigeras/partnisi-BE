@@ -5,7 +5,6 @@ const MONGODB_URI =
   process.env.PROD_MONGODB || "mongodb://127.0.0.1:27017/partynisi";
   
 
-// This is for Model.findByIdAndUpdate method, specifically so that {new: true} is the default
 mongoose.set("returnOriginal", false);
 
 mongoose

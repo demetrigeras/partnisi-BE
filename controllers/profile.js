@@ -23,7 +23,7 @@ export const getProfiles = async (req, res) => {
 // };
 export const getProfile = async (req, res) => {
   try {
-    const { userId } = req.params; // Use userId in the route parameter
+    const { userId } = req.params;
     const profile = await Profile.findOne({ user: userId });
     if (!profile) {
       return res.status(404).json({ message: 'Profile not found' });
@@ -41,22 +41,12 @@ export const createProfile = async (req, res) => {
     const profile = new Profile(req.body);
     await profile.save();
     console.log(req.body)
-    res.status(201).json(profile); // Send the complete charity object in the response
+    res.status(201).json(profile); 
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });
   }
 };
-// export const createCharity = async (req, res) => {
-//   try {
-//     const charity = new Charity(req.body);
-//     const savedCharity = await charity.save();
-//     res.status(201).json(savedCharity); // Send the complete saved charity object in the response
-//   } catch (error) {
-//     console.log(error.message);
-//     res.status(500).json({ error: error.message });
-//   }
-// };
 
 export const updateProfile = async (req, res) => {
   const { id } = req.params;
