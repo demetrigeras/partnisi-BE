@@ -38,18 +38,19 @@ export const getattendances = async (req, res) => {
     try {
         // Extracting profilename from request parameters
         const { profilename } = req.params;
+       
 
         // Finding all attendance requests for the given profile name
         // Populating 'event' with its title and 'user' with its name
         const attendances = await AttendanceSchema.find({ profilename })
             .populate({
                 path: 'event',
-                select: 'title'
+                select: 'title' , type: String
             })
-            // .populate({
-            //     path: 'user',
-            //     select: 'name'
-            // });
+          //   .populate({
+          //     path: 'user',
+          //     select: 'name'
+          // });
 
         // Sending the found attendances as a response
         res.json(attendances);
