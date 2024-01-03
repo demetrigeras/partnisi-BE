@@ -1,4 +1,5 @@
 import AttendanceSchema from "../models/attendance.js";
+import EventSchema from "../models/event.js";
 
 
 export const getattendances = async (req, res) => {
@@ -22,12 +23,52 @@ export const getattendances = async (req, res) => {
     }
   };
 
+  export const getAttendancesByUser = async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const attendances = await AttendanceSchema.find({ user: userId }).populate('event', 'title');
+      res.json(attendances);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: error.message });
+    }
+   };
+
+   export const getAttendancesByProfileName = async (req, res) => {
+    try {
+        // Extracting profilename from request parameters
+        const { profilename } = req.params;
+
+        // Finding all attendance requests for the given profile name
+        // Populating 'event' with its title and 'user' with its name
+        const attendances = await AttendanceSchema.find({ profilename })
+            .populate({
+                path: 'event',
+                select: 'title'
+            })
+            // .populate({
+            //     path: 'user',
+            //     select: 'name'
+            // });
+
+        // Sending the found attendances as a response
+        res.json(attendances);
+    } catch (error) {
+        // Logging the error and sending an error response
+        console.error('Error fetching attendances by profilename:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+  
+
   export const createAttendance = async (req, res) => {
     try {
       const attendance = new AttendanceSchema(req.body);
       await attendance.save();
       console.log(req.body)
-      res.status(201).json(attendance); // Send the complete charity object in the response
+      res.status(201).json(attendance); 
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ error: error.message });

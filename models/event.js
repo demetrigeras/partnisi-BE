@@ -6,7 +6,7 @@ const EventSchema = new mongoose.Schema({
   description: { type: String},
   dateTime: { type: Date, required: true },
   location: String,
-  host: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  host: { type: mongoose.Schema.Types.ObjectId, ref: 'User',},
   attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   numberOfAttendees: { type: Number, default: 0 }
 });

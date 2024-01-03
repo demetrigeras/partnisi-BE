@@ -39,7 +39,7 @@ export const getEvents = async (req, res) => {
       const event = new EventSchema(req.body);
       await event.save();
       console.log(req.body)
-      res.status(201).json(event); // Send the complete charity object in the response
+      res.status(201).json(event); 
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ error: error.message });
